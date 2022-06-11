@@ -67,7 +67,7 @@ services:
       - ./app/public:/var/www/app/public
       - ./log:/var/www/log
       - ./.docker/nginx/default.conf:/etc/nginx/includes/default.conf
-      - ./.docker/nginx/templates/http.conf.template:/etc/nginx/templates/sentrumbookstore.conf.template
+      - ./.docker/nginx/templates/http.conf.template:/etc/nginx/templates/website.conf.template
     environment:
       - APP_NAME=${APP_NAME}
     networks:

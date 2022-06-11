@@ -4,7 +4,7 @@ services:
     volumes:
       - ./.docker/certbot/conf:/etc/letsencrypt
       - ./.docker/certbot/www:/var/www/.docker/certbot/www
-      - ./.docker/nginx/templates/https.conf.template:/etc/nginx/templates/sentrumbookstore.conf.template
+      - ./.docker/nginx/templates/https.conf.template:/etc/nginx/templates/website.conf.template
 
   certbot:
     image: certbot/certbot
