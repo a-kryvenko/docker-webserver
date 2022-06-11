@@ -1,0 +1,23 @@
+version: '3'
+services:
+  cloudStorage:
+    image: efrecon/s3fs
+    container_name: cloudStorage
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - 'apparmor:unconfined'
+    devices:
+      - /dev/fuse
+    environment:
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      AWS_S3_ACCESS_KEY_ID: ${AWS_S3_ACCESS_KEY_ID}
+      AWS_S3_SECRET_ACCESS_KEY: ${AWS_S3_SECRET_ACCESS_KEY}
+      AWS_S3_URL: ${AWS_S3_URL}
+      AWS_S3_MOUNT: '/opt/s3fs/bucket'
+      S3FS_ARGS: -o use_path_request_style
+      GID: ${SYSTEM_GROUP_ID}
+      UID: ${SYSTEM_USER_ID}
+    volumes:
+      - ${AWS_S3_LOCAL_MOUNT_POINT}:/opt/s3fs/bucket:rshared

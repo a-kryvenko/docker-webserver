@@ -1,0 +1,1 @@
+1 1 * * 0 #APP_PATH#/cgi-bin/create-backup.sh >> #APP_PATH#/log/crontab/actions.log 2>&1

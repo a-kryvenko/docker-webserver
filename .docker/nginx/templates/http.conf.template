@@ -1,0 +1,15 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name www.${APP_NAME};
+
+    return 301 http://${APP_NAME}$request_uri;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${APP_NAME};
+
+    include /etc/nginx/includes/default.conf;
+}
