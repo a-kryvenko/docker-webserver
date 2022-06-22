@@ -15,7 +15,7 @@
 
 1. **[Подготовить](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-22-04)** сервер
 2. **[Установить](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)** **docker**
-3. **[Установить](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose)** **docker-compose**
+3. **[Установить](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)** **docker-compose**
 
 ## Порядок установки:
 
