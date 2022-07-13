@@ -13,7 +13,7 @@ WORKDIR /var/www
 
 RUN apt-get update -y \
     && apt-get autoremove -y \
-    && apt-get -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
     msmtp \
     zip \
     unzip \
