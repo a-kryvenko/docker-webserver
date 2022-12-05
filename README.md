@@ -1,90 +1,90 @@
-# Вебсервер на контейнерах Docker.
+# Webserver on docker containers
 
-Описание процесса создания доступно на **[habr.com](https://habr.com/ru/post/670938/)**.
+Development process described in **[habr.com](https://habr.com/ru/post/670938/)**.
 
-В состав входят:
+Webserver included:
 - MySQL
 - PHP
 - Nginx
 - msmtp
 - composer
-- letsencrypt SSL сертификаты
-- резервное копирование в облако
+- letsencrypt SSL certificates
+- cloud backups
 
-## Перед началом работы
+## Before starting
 
-1. **[Подготовить](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-22-04)** сервер
-2. **[Установить](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)** **docker**
-3. **[Установить](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)** **docker-compose**
+1. **[Prepare](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-22-04)** server
+2. **[Install](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)** **docker**
+3. **[Install](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)** **docker-compose**
 
-## Порядок установки:
+## Installation:
 
-### 1. Клонируем репозиторий
+### 1. Clone repository
 
 ~~~
 git clone git@github.com:a-kryvenko/docker-website.git .
 ~~~
 
-### 2. Копируем файл с переменными окружения:
+### 2. Create copy of .env file:
 
 ~~~
 cp .env.example .env
 ~~~
 
-### 3. В файле .env указываем значения для переменных
+### 3. Modify .env, set up variables
 
 <details>
-    <summary><b>Описание переменных</b></summary>
-    <ul>
-        <li><b>COMPOSE_FILE</b> - какие файлы docker-compose подключаем. Отличаются для dev и production окружений;</li>
-        <li><b>SYSTEM_GROUP_ID</b> - ID группы пользователя хоста, от имени которого работаем с сервером. Обычно 1000;</li>
-        <li><b>SYSTEM_USER_ID</b> - ID группы пользователя хоста, от имени которого работаем с сервером. Обычно 1000;</li>
-        <li><b>APP_NAME</b> - <b>url</b>, по которому доступен сайт. Например, <b>example.com</b> или <b>example.local</b> для локальной разработки;</li>
-        <li><b>ADMINISTRATOR_EMAIL</b> - email, на который отправляем информацию о сертификатах;</li>
-        <li><b>DB_HOST</b> - хост базы данных. По умолчанию <b>db</b>, но в случае, когда база данных на другом сервере - указываем адрес сервера;</li>
-        <li><b>DB_DATABASE</b> - название базы данных;</li>
-        <li><b>DB_USER</b> - имя пользователя, который работает с базой данных;</li>
-        <li><b>DB_USER_PASSWORD</b> - пароль пользователя базы данных;</li>
-        <li><b>DB_ROOT_PASSWORD</b> - пароль <b>root</b> пользователя базы данных;</li>
-        <li><b>AWS_S3_URL</b> - <b>url</b> облачного хранилища бэкапов;</li>
-        <li><b>AWS_S3_BUCKET</b> - название бакета в хранилище бэкапов;</li>
-        <li><b>AWS_S3_ACCESS_KEY_ID</b> - ключ к хранилищу;</li>
-        <li><b>AWS_S3_SECRET_ACCESS_KEY</b> - пароль к хранилищу;</li>
-        <li><b>AWS_S3_LOCAL_MOUNT_POINT</b> - путь к локальной папке, в которую монтируем облачное хранилище;</li>
-        <li><b>MAIL_SMTP_HOST</b> - smpt хост для отправки почты, например <b>smtp.gmail.com</b>;</li>
-        <li><b>MAIL_SMTP_PORT</b> - smpt порт. По умолчанию 25;</li>
-        <li><b>MAIL_SMTP_USER</b> - имя пользователя smpt;</li>
-        <li><b>MAIL_SMTP_PASSWORD</b> - пароль smtp.</li>
-    </ul>
+     <summary><b>Variables description</b></summary>
+     <ul>
+         <li><b>COMPOSE_FILE</b> - which docker-compose files will be included;</li>
+         <li><b>SYSTEM_GROUP_ID</b> - ID of host user group. Usually 1000;</li>
+         <li><b>SYSTEM_USER_ID</b> - ID of host user. Usually 1000;</li>
+         <li><b>APP_NAME</b> - <b>url</b> by which the site is accessible. For example, <b>example.com</b> or <b>example.local</b> for local development;</li>
+         <li><b>ADMINISTRATOR_EMAIL</b> - email to which we send information about certificates;</li>
+         <li><b>DB_HOST</b> - database host. By default <b>db</b>, but in the case when the database is on another server - specify the server address;</li>
+         <li><b>DB_DATABASE</b> - database name;</li>
+         <li><b>DB_USER</b> - the name of the user who works with the database;</li>
+         <li><b>DB_USER_PASSWORD</b> - database user password;</li>
+         <li><b>DB_ROOT_PASSWORD</b> - password of the <b>root</b> database user;</li>
+         <li><b>AWS_S3_URL</b> - <b>url</b> of cloud backup storage;</li>
+         <li><b>AWS_S3_BUCKET</b> - name of the bucket in the backup storage;</li>
+         <li><b>AWS_S3_ACCESS_KEY_ID</b> - storage key;</li>
+         <li><b>AWS_S3_SECRET_ACCESS_KEY</b> - storage password;</li>
+         <li><b>AWS_S3_LOCAL_MOUNT_POINT</b> - path to the local folder where we mount the cloud storage;</li>
+         <li><b>MAIL_SMTP_HOST</b> - smpt host for sending mail, e.g. <b>smtp.gmail.com</b>;</li>
+         <li><b>MAIL_SMTP_PORT</b> - smpt port. Default 25;</li>
+         <li><b>MAIL_SMTP_USER</b> - smpt username;</li>
+         <li><b>MAIL_SMTP_PASSWORD</b> - smtp password.</li>
+     </ul>
 </details>
 
-Отдельно стоит упомянуть **COMPOSE_FILE**. В зависимости от того, в каком окружении 
-мы запускаем сайт - нам нужны разные сервисы. К примеру, локально - нам 
-нужен только базовый и облако для бэкапов:
+Separately, it is worth mentioning **COMPOSE_FILE**. Depending on the environment
+we are launching a website - we need different services. For example, locally - you
+only need a base app and a cloud for backups:
 
 > compose-app.yml:compose-cloud.yml
 
-Для **dev** сайта - бэкапы и https:
+For **dev** server - backups and https:
 
 > compose-app.yml:compose-https.yml:compose-cloud.yml
 
-Для **production** - весь набор:
+For **production** server - whole set:
 > compose-app.yml:compose-https.yml:compose-cloud.yml:compose-production.yml
 
-### 4. Собираем образы и запускаем наш сервер
+### 4. Build images and up server
 
 ~~~
 docker-compose build \  
 docker-compose up -d
 ~~~
 
-### 5. Если мы используем https, то запускаем скрипт для получения сертификатов
+### 5. If https required, then run script for creating certificates
 
 ~~~
 ./cgi-bin/prepare-certbot.sh
 ~~~
 
-### 6. Инициализируем crontab
+### 6. Initialize crontab
 
 ~~~ 
 ./cgi-bin/prepare-crontab.sh
