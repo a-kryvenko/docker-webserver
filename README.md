@@ -1,5 +1,8 @@
 # Webserver on docker containers
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
+
 Development process described in **[habr.com](https://habr.com/ru/post/670938/)**.
 
 Webserver included:
