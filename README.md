@@ -74,6 +74,10 @@ For **dev** server - backups and https:
 For **production** server - whole set:
 > compose-app.yml:compose-https.yml:compose-cloud.yml:compose-production.yml
 
+Also you may need to open database ports on dev server (for example, for PhpStorm database inspect).
+Ports setting up in compose-dev.yml, so in this case you need:
+> compose-app.yml:compose-dev.yml
+
 ### 4. Build images and up server
 
 ~~~
