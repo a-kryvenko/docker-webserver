@@ -17,6 +17,7 @@ RUN apt-get update -y \
     msmtp \
     zip \
     unzip \
+    && docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./.docker/msmtp/msmtprc /etc/msmtprc
