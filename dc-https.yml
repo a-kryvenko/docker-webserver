@@ -1,0 +1,11 @@
+version: '3'
+services:
+  nginx:
+    expose:
+      - "8000"
+    ports: []
+    environment:
+      - APP_NAME=${APP_NAME}
+      - VIRTUAL_HOST=${APP_NAME}
+      - VIRTUAL_PORT=8000
+      - LETSENCRYPT_HOST=${APP_NAME}

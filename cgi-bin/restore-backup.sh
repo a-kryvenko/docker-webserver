@@ -9,7 +9,7 @@ cd "$BASEDIR/"
 backupsDestination="$BASEDIR/.backups/local"
 
 # If backups storage is mounted, ask, from where will restore backups
-if [[ $COMPOSE_FILE == *"compose-cloud.yml"* ]]; then
+if [[ $COMPOSE_FILE == *"dc-cloud.yml"* ]]; then
     while true
     do
         reset

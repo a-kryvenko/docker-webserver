@@ -1,1 +1,0 @@
-1 */12 * * * #APP_PATH#/cgi-bin/certbot-renew.sh >> #APP_PATH#/log/crontab/actions.log 2>&1

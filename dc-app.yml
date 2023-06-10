@@ -1,0 +1,106 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0.33
+    container_name: wDatabase
+    restart: always
+    tty: true
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_USER_PASSWORD}
+    volumes:
+      - ./.backups:/var/www/.backups
+      - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - database:/var/lib/mysql
+    networks:
+      - backend
+
+  mail:
+    image: namshi/smtp
+    container_name: wMail
+    restart: always
+    tty: true
+    environment:
+      SMARTHOST_ADDRESS: ${MAIL_SMTP_HOST}
+      SMARTHOST_PORT: ${MAIL_SMTP_PORT}
+      SMARTHOST_USER: ${MAIL_SMTP_USER}
+      SMARTHOST_PASSWORD: ${MAIL_SMTP_PASSWORD}
+    networks:
+      - backend
+
+  php:
+    container_name: wApplication
+    restart: always
+    tty: true
+    build:
+      context: ./.docker
+      dockerfile: php.Dockerfile
+      args:
+        GID: ${SYSTEM_GROUP_ID}
+        UID: ${SYSTEM_USER_ID}
+        USER: ${USER:-webserver}
+        SMTP_EMAIL: ${MAIL_SMTP_USER}
+    ports:
+      - "9000:9000"
+    working_dir: /var/webserver/www
+    volumes:
+      - ./app:/var/webserver/www
+      - ./log:/var/webserver/log
+      - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - backend
+    depends_on:
+      - db
+      - mail
+
+  nginx:
+    container_name: wNginx
+    restart: always
+    build:
+      context: ./.docker
+      dockerfile: nginx.Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+        USER: ${USER:-webserver}
+    ports:
+      - "80:80"
+    volumes:
+      - ./app/public:/var/webserver/www/public
+      - ./log:/var/webserver/log
+    environment:
+      - APP_NAME=${APP_NAME}
+    networks:
+      frontend:
+      backend:
+        aliases:
+          - ${APP_NAME}
+    depends_on:
+      - php
+
+  composer:
+    profiles: ["composer"]
+    container_name: wComposer
+    restart: "no"
+    build:
+      context: ./.docker
+      dockerfile: composer.Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+        USER: ${USER:-webserver}
+    working_dir: /var/webserver/www
+    entrypoint: [ 'composer', '--ignore-platform-reqs' ]
+    volumes:
+      - ./app:/var/webserver/www
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  database:

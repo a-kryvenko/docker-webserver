@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+
+  php:
+    restart: unless-stopped
+
+  nginx:
+    restart: unless-stopped
+    ports:
+      - "80:80"
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: wMailHog
+    restart: unless-stopped
+    logging:
+      driver: 'none'
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - backend

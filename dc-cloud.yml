@@ -2,7 +2,7 @@ version: '3'
 services:
   cloudStorage:
     image: efrecon/s3fs
-    container_name: cloudStorage
+    container_name: wCloudStorage
     restart: unless-stopped
     cap_add:
       - SYS_ADMIN
