@@ -8,6 +8,9 @@ services:
   php:
     restart: unless-stopped
 
+  mail:
+    restart: unless-stopped
+
   nginx:
     restart: unless-stopped
     ports:
