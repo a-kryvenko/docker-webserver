@@ -2,10 +2,16 @@ version: '3'
 services:
   nginx:
     expose:
-      - "8000"
-    ports: []
+      - "80"
     environment:
+      - HOSTNAME=${APP_NAME}
       - APP_NAME=${APP_NAME}
       - VIRTUAL_HOST=${APP_NAME}
-      - VIRTUAL_PORT=8000
       - LETSENCRYPT_HOST=${APP_NAME}
+    networks:
+      - nginx-proxy-network
+
+networks:
+  nginx-proxy-network:
+    external: true
+

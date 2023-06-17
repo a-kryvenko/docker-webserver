@@ -21,10 +21,13 @@ Webserver included:
 4. [optional] For SSL certificates up containers with **[nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)** and **[acme-companion](https://github.com/nginx-proxy/acme-companion)**:
 
 ```
+docker network create nginx-proxy-network
+
 docker run --detach \
     --name nginx-proxy \
     --publish 80:80 \
     --publish 443:443 \
+    --net nginx-proxy-network \
     --volume certs:/etc/nginx/certs \
     --volume vhost:/etc/nginx/vhost.d \
     --volume html:/usr/share/nginx/html \
@@ -33,6 +36,7 @@ docker run --detach \
 
 docker run --detach \
     --name nginx-proxy-acme \
+    --net nginx-proxy-network \
     --volumes-from nginx-proxy \
     --volume /var/run/docker.sock:/var/run/docker.sock:ro \
     --volume acme:/etc/acme.sh \
