@@ -65,8 +65,6 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
         USER: ${USER:-webserver}
-    ports:
-      - "80:80"
     volumes:
       - ./app/public:/var/webserver/www/public
       - ./log:/var/webserver/log

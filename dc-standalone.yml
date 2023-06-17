@@ -1,0 +1,5 @@
+version: '3'
+services:
+  nginx:
+    ports:
+      - "80:80"

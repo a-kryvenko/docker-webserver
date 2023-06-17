@@ -92,14 +92,14 @@ only need a base app, cloud for backups:
 
 For **dev** server - all above and https:
 
-> dc-app.yml:dc-https.yml:dc-cloud.yml
+> dc-app.yml:dc-proxy.yml:dc-cloud.yml
 
 For **production** server - app, https and cloud backups:
-> dc-app.yml:dc-https.yml:dc-cloud.yml
+> dc-app.yml:dc-proxy.yml:dc-cloud.yml
 
-Also, you may need to open database ports on dev server (for example, for PhpStorm database inspect).
+Also, you may need to open database ports on dev server (for example, for PhpStorm database inspect) and open 80 port for nginx.
 Ports setting up in compose-dev.yml, so in this case you need:
-> dc-app.yml:dc-dev.yml
+> dc-app.yml:dc-dev.yml:dc-standalone.yml
 
 ### 4. Build images and up server
 
