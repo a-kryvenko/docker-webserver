@@ -52,7 +52,7 @@ Where ***mail@yourdomain.tld*** is you contact email for sending emails with cer
 ### 1. Clone repository
 
 ~~~
-git clone git@github.com:a-kryvenko/docker-website.git .
+git clone git@github.com:a-kryvenko/docker-webserver.git .
 ~~~
 
 ### 2. Create copy of .env file:
