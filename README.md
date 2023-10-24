@@ -15,10 +15,8 @@ Webserver included:
 
 ## Before starting
 
-1. **[Prepare](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-22-04)** server
-2. **[Install](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)** **docker**
-3. **[Install](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)** **docker-compose**
-4. [optional] For SSL certificates up containers with **[nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)** and **[acme-companion](https://github.com/nginx-proxy/acme-companion)**:
+1. **[Prepare](https://rycbar-software.com/articles/configure-server-for-web-applications)** server
+2. [optional] For SSL certificates up containers with **[nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)** and **[acme-companion](https://github.com/nginx-proxy/acme-companion)**:
 
 ```
 docker network create nginx-proxy-network
