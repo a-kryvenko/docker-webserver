@@ -15,7 +15,7 @@ Webserver included:
 
 ## Before starting
 
-1. **[Prepare](https://rycbar-software.com/articles/configure-server-for-web-applications)** server
+1. **[Prepare](https://github.com/a-kryvenko/tutorials/blob/master/docs/ServerConfiguration.md)** server
 2. [optional] For SSL certificates up containers with **[nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)** and **[acme-companion](https://github.com/nginx-proxy/acme-companion)**:
 
 ```
