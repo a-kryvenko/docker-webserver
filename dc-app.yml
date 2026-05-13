@@ -70,6 +70,8 @@ services:
       - ./log:/var/webserver/log
     environment:
       - APP_NAME=${APP_NAME}
+    ports:
+      - "80:80"
     networks:
       frontend:
       backend:

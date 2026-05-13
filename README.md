@@ -1,7 +1,6 @@
 # Webserver on docker containers
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 
 Development process described in **[habr.com](https://habr.com/ru/post/670938/)**.
 
@@ -99,9 +98,9 @@ For **dev** server - all above and https:
 For **production** server - app, https and cloud backups:
 > dc-app.yml:dc-proxy.yml:dc-cloud.yml
 
-Also, you may need to open database ports on dev server (for example, for PhpStorm database inspect) and open 80 port for nginx.
+Also, you may need to open database ports on dev server (for example, for PhpStorm database inspect).
 Ports setting up in compose-dev.yml, so in this case you need:
-> dc-app.yml:dc-dev.yml:dc-standalone.yml
+> dc-app.yml:dc-dev.yml
 
 ### 4. Build images and up server
 
